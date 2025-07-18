@@ -1,3 +1,7 @@
+"use client";
+
+import { useState } from "react";
+
 let subjects = ["Næringsliv", "Distriktspolitikk", "Integrering"];
 
 let assertions = [
@@ -48,7 +52,10 @@ let opinions = [
 ];
 let skips = 0;
 let order = [0, 1, 2];
-let currentAssertment = 0;
+
+let userAnswers = [];
+
+function handleSubmit() {}
 
 function splitParagraphs(text: string) {
   let splitText = text.split("\n");
@@ -63,35 +70,121 @@ function splitParagraphs(text: string) {
 }
 
 export default function Valgomat() {
+  const [currentSelectedAnswer, setCurrentSelectedAnswer] = useState(0);
+  const [currentAssertment, setCurrentAssertment] = useState(0);
+
+  function select(value: number) {
+    if (currentSelectedAnswer !== value) {
+      setCurrentSelectedAnswer(value);
+    } else {
+      setCurrentSelectedAnswer(0);
+    }
+  }
+
+  function moveToAssertment(moveBy: number) {
+    setCurrentAssertment(currentAssertment + moveBy);
+  }
+
+  function partyOpinions(opinion: number) {
+    let items = [];
+    for (let i = 0; i < partiesSymbol.length; i++) {
+      if (opinions[i][currentAssertment] === opinion) {
+        items.push(<li key={i}>{partiesSymbol[i]}</li>);
+      }
+    }
+    return items;
+  }
+
   return (
-    <div className="flex flex-col items-center w-screen">
-      <div className="mt-50 p-10 h-fit w-1/2 bg-white rounded-2xl">
+    <div className="flex flex-col items-center gap-15">
+      <div className="mt-50 p-10 pb-5 w-9/10 md:w-[500px] h-fit bg-white rounded-2xl">
         <h3 className="text-[#0A466E]">{assertions[currentAssertment][1]}</h3>
         <h1 className="font-semibold text-xl">
           {assertions[currentAssertment][0]}
         </h1>
-        <form className="flex flex-row mt-5 justify-evenly">
-          <button className="bg-[#85A2B7] text-[#f5f3ee] px-1 rounded cursor-pointer hover:bg-[#0A466E]">
-            HELT UENIG
-          </button>
-          <button className="bg-[#B9FFEB] text-[#3d3d3d] px-1 rounded cursor-pointer hover:bg-[#73FFD7]">
-            LITT UENIG
-          </button>
-          <button className="bg-[#FFEEB2] text-[#3d3d3d] px-1 rounded cursor-pointer hover:bg-[#FFDE66]">
-            LITT ENIG
-          </button>
-          <button className="bg-[#FFB19F] text-[#f5f3ee] px-1 rounded cursor-pointer hover:bg-[#FF6340]">
-            HELT ENIG
+
+        {/* Show party symbols only if an answer is selected */}
+        {currentSelectedAnswer !== 0 && (
+          <div className="mt-5 grid grid-cols-4 gap-4 justify-items-center items-end">
+            <div className="flex flex-col items-center gap-2">
+              <ul>{partyOpinions(-2)}</ul>
+            </div>
+            <div className="flex flex-col items-center gap-2">
+              <ul>{partyOpinions(-1)}</ul>
+            </div>
+            <div className="flex flex-col items-center gap-2">
+              <ul>{partyOpinions(1)}</ul>
+            </div>
+            <div className="flex flex-col items-center gap-2">
+              <ul>{partyOpinions(2)}</ul>
+            </div>
+          </div>
+        )}
+
+        {/* Align buttons in same grid format */}
+        <form className="flex flex-col gap-2 items-center">
+          <div className="mt-5 grid grid-cols-4 gap-4 justify-items-center">
+            <button
+              className={`px-1 rounded cursor-pointer text-[#f5f3ee] ${
+                currentSelectedAnswer === -2
+                  ? "bg-[#0A466E]"
+                  : "bg-[#85A2B7] hover:bg-[#0A466E]"
+              }`}
+              type="button"
+              onClick={() => select(-2)}
+            >
+              HELT UENIG
+            </button>
+
+            <button
+              className={`px-1 rounded cursor-pointer text-[#3d3d3d] ${
+                currentSelectedAnswer === -1
+                  ? "bg-[#73FFD7]"
+                  : "bg-[#B9FFEB] hover:bg-[#73FFD7]"
+              }`}
+              type="button"
+              onClick={() => select(-1)}
+            >
+              LITT UENIG
+            </button>
+
+            <button
+              className={`px-1 rounded cursor-pointer text-[#3d3d3d] ${
+                currentSelectedAnswer === 1
+                  ? "bg-[#FFDE66]"
+                  : "bg-[#FFEEB2] hover:bg-[#FFDE66]"
+              }`}
+              type="button"
+              onClick={() => select(1)}
+            >
+              LITT ENIG
+            </button>
+
+            <button
+              className={`px-1 rounded cursor-pointer text-[#f5f3ee] ${
+                currentSelectedAnswer === 2
+                  ? "bg-[#FF6340]"
+                  : "bg-[#FFB19F] hover:bg-[#FF6340]"
+              }`}
+              type="button"
+              onClick={() => select(2)}
+            >
+              HELT ENIG
+            </button>
+          </div>
+
+          <button className="bg-[#3d3d3d] text-[#f5f3ee] mt-4 px-3 py-1 w-fit cursor-pointer hover:bg-[#000000]">
+            {currentSelectedAnswer === 0 ? "Hopp over" : "Neste påstand"}
           </button>
         </form>
       </div>
 
-      <div className="mt-20 p-10 h-fit w-1/2 bg-white rounded-2xl">
+      <div className="p-10 w-9/10 md:w-[500px] h-fit bg-white rounded-2xl">
         <h1 className="font-semibold text-xl">Argumenter for og imot</h1>
         {splitParagraphs(forAndAgainst[currentAssertment])}
       </div>
 
-      <div className="mt-20 p-10 h-fit w-1/2 bg-white rounded-2xl">
+      <div className="p-10 w-9/10 md:w-[500px] h-fit bg-white rounded-2xl">
         <h1 className="font-semibold text-xl">Om valgomaten vår</h1>
         <p>Det e en valgomat ka trenger du å vite..?</p>
       </div>

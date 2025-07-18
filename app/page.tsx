@@ -3,7 +3,7 @@ import Valgomat from "@/components/valgomat";
 export default function Home() {
   return (
     <div>
-      <main className="bg-[#f5f3ee] w-screen">
+      <main className="bg-[#f5f3ee] w-screen h-full">
         <Valgomat />
       </main>
       <footer></footer>
