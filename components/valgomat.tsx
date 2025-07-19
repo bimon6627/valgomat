@@ -100,7 +100,7 @@ export default function Valgomat({
   return (
     <div className="flex flex-col items-center gap-10">
       <ContentCard>
-        <h3 className="text-[#0A466E]">{assertions[currentAssertion][1]}</h3>
+        <h3 className="font-regular text-[#0a466e]">{assertions[currentAssertion][1]}</h3>
         <h1 className="font-semibold text-xl text-black">
           {assertions[currentAssertion][0]}
         </h1>
@@ -125,7 +125,7 @@ export default function Valgomat({
               className={
                 currentAssertion === 0
                   ? `hidden`
-                  : `bg-[#ff6340] text-[#f5f3ee] mt-10 px-5 py-2 w-fit cursor-pointer hover:bg-[#000000]`
+                  : `bg-[#ff6340] font-semibold text-[#f5f3ee] mt-10 px-5 py-2 w-fit cursor-pointer hover:bg-[#000000] rounded`
               }
             >
               Tilbake
@@ -133,9 +133,9 @@ export default function Valgomat({
             <button
               type="button"
               onClick={() => nextAssertion()}
-              className="bg-[#ff6340] text-[#f5f3ee] mt-10 px-5 py-2 w-fit cursor-pointer hover:bg-[#000000]"
+              className="bg-[#ff6340] font-semibold text-[#f5f3ee] mt-10 px-5 py-2 w-fit cursor-pointer hover:bg-[#000000] rounded"
             >
-              {currentSelectedAnswer === 0 ? "Hopp over" : "Neste påstand"}
+              {currentSelectedAnswer === 0 ? "Hopp over" : "Neste påstand →"}
             </button>
           </div>
         </form>
@@ -145,7 +145,7 @@ export default function Valgomat({
         <h1 className="font-semibold text-xl text-black">
           Argumenter for og imot
         </h1>
-        <div className="flex flex-col gap-5 text-black">
+        <div className="flex flex-col gap-5 font-regular text-black">
           {splitParagraphs(forAndAgainst[currentAssertion])}
         </div>
       </ContentCard>

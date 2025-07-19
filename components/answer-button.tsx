@@ -41,11 +41,11 @@ export default function AnswerButton({
         type="button"
         onClick={() => select(value)}
         className={`
-          w-12 h-12 rounded-full border-2 border-gray-400
+          w-12 h-12 rounded-full border-2
           flex items-center justify-center
           transition-all duration-150
           relative group
-          ${selected ? "bg-black border-black" : "bg-white"}
+          ${selected ? "bg-[#ff6340] border-[#ff6340]" : "bg-white border-[#ff6340]"}
         `}
       >
         <span
@@ -53,11 +53,11 @@ export default function AnswerButton({
             absolute inset-1 rounded-full
             transition-all duration-150
             pointer-events-none
-            ${selected ? "bg-black" : "group-hover:bg-gray-300"}
+            ${selected ? "bg-[#ff6340]" : "group-hover:bg-[#ffe0d9]"}
           `}
         />
       </button>
-      <span className="mt-2 text-center text-xs text-[#3d3d3d] font-medium">
+      <span className="mt-2 font-regular text-center text-xs text-black">
         {label}
       </span>
     </div>
