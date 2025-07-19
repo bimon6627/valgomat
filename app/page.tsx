@@ -27,11 +27,11 @@ const partyStyles: Record<string, { bg: string; text: string }> = {
   KRF: { bg: "bg-yellow-400", text: "text-black" },
 };
 
-const subjects = ["Næringsliv", "Distriktspolitikk", "Integrering"];
+const subjects = ["Skolehverdagen", "Eksamen", "Læreplasser"];
 
 const assertions: [string, string][] = [
   [
-    "Skatte- og avgiftsnivået for norske bedrifter er altfor høyt.",
+    "Elever ved alle skoletrinn bør ha lengre skoledager for å få mer tid til læring.",
     subjects[0],
   ],
   ["Det trengs flere kommunesammenslåinger her i landet.", subjects[1]],
@@ -42,9 +42,9 @@ const assertions: [string, string][] = [
 ];
 
 const forAndAgainst = [
-  `Norske bedrifter må betale ulike skatter for å bidra til statskassa og samfunnet. Selskapsskatten er på 22 prosent. Det kan være særlige skatter for kraftbransjen eller fiskeoppdrettere, mens eiere kan få formuesskatt.
-  Debatten om skattetrykket har rast. Noen norske eiere har flyttet til Sveits. Skattetrykket må ned for å verne om norsk eierskap, mener noen.
-  Andre mener skattene ikke er urimelig høye, og at velferdssamfunnet gir mange andre goder for bedrifter i Norge.`,
+  `Over de siste tiårene har politkerne lagt til flere år på skolen gjennom flere trinn og skoletimer. Enkelte mener at det er viktig å ha lengre skoledager for å gi elevene mer tid til læring, mens andre mener at det kan bli for mye press på elevene.
+  Samtidig viser statistikk at flere skoletimer ikke har bidratt til å øke resultatene i skolen da resultatene i flere fag er blitt dårligere.
+  Elevorganisasjonen mener det ikke er hensiktsmessig å legge til flere timer i skolen da dette kan føre til økt stress og press på elevene. Vi frykter dette vil bidra til mer utbrenthet, noe som ytterligere vil forværre resultatene i skolen.`,
   `Norge har 357 kommuner. Tallet ble redusert med om lag 70 da Erna Solbergs regjering gjennomførte en kommunereform.
   Tanken var at større kommuner er mer effektive, og at det er positivt for innbyggere og ansatte med større fagmiljøer. Mange mener det fortsatt er behov for å redusere tallet.
   En ulempe med sammenslåinger kan være at kommunene blir større geografiske områder med mer avstand mellom innbyggere og de som bestemmer, mener andre.`,
@@ -55,14 +55,14 @@ const forAndAgainst = [
 
 const opinions = [
   [-2, -2, -1], // R
-  [-2, -2, -1], // SV
-  [-2, -1, 2], // AP
+  [1, -2, -1], // SV
+  [-1, -1, 2], // AP
   [-1, -2, 2], // SP
-  [1, -1, -1], // MDG
-  [2, -1, -1], // KRF
-  [2, 2, 1], // V
+  [-2, -1, -1], // MDG
+  [-1, -1, -1], // KRF
+  [-1, 2, 1], // V
   [2, 2, 2], // H
-  [2, 2, 2], // FRP
+  [-1, 2, 2], // FRP
 ];
 
 export default function Home() {
@@ -72,12 +72,14 @@ export default function Home() {
   return (
     <div>
       <main className="bg-[#ffefec] pt-10 w-screen h-full min-h-screen">
-        <div className="w-full flex justify-center mt-8 mb-2">
-          <img
-            src="/eo-nasjonalt.svg"
-            alt="Globe"
-            className="w-[250px] h-auto"
-          />
+        <div className="w-full flex justify-center mt-8 mb-12">
+          <div className="flex flex-col items-center">
+            <img
+              src="/eo-nasjonalt.svg"
+              alt="Globe"
+              className="w-[250px] h-auto"
+            />
+          </div>
         </div>
 
         {!submitted ? (
@@ -100,8 +102,9 @@ export default function Home() {
             <h1 className="font-semibold text-xl text-black">
               Om valgomaten vår
             </h1>
-            <p className="text-black">
-              Det e en valgomat ka trenger du å vite..?
+            <p className="font-regular text-black">
+              Dette er en valgomat utviklet av Elevorganisasjonen som er laget for å hjelpe deg å finne ut hvilke partier som passer best med dine meninger om utdanningspolitikk. Du vil bli presentert for påstander, og du kan velge hvor enig eller uenig du er med dem.
+              Basert på dine svar vil valgomaten vise hvilke partier du er mest enig med.
             </p>
           </ContentCard>
         </div>
