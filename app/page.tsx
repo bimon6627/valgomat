@@ -2,6 +2,7 @@
 import Valgomat from "@/components/valgomat";
 import ContentCard from "@/components/content-card";
 import { useState } from "react";
+import Result from "@/components/result";
 
 const parties = [
   { name: "Rødt", symbol: "R" },
@@ -94,7 +95,14 @@ export default function Home() {
             onSubmit={() => setSubmitted(true)}
           />
         ) : (
-          <></>
+          <Result
+            parties={parties}
+            partyStyles={partyStyles}
+            assertions={assertions}
+            forAndAgainst={forAndAgainst}
+            opinions={opinions}
+            userAnswers={userAnswers}
+          />
         )}
 
         <div className="w-full flex justify-center pt-10">
@@ -103,8 +111,12 @@ export default function Home() {
               Om valgomaten vår
             </h1>
             <p className="font-regular text-black">
-              Dette er en valgomat utviklet av Elevorganisasjonen som er laget for å hjelpe deg å finne ut hvilke partier som passer best med dine meninger om utdanningspolitikk. Du vil bli presentert for påstander, og du kan velge hvor enig eller uenig du er med dem.
-              Basert på dine svar vil valgomaten vise hvilke partier du er mest enig med.
+              Dette er en valgomat utviklet av Elevorganisasjonen som er laget
+              for å hjelpe deg å finne ut hvilke partier som passer best med
+              dine meninger om utdanningspolitikk. Du vil bli presentert for
+              påstander, og du kan velge hvor enig eller uenig du er med dem.
+              Basert på dine svar vil valgomaten vise hvilke partier du er mest
+              enig med.
             </p>
           </ContentCard>
         </div>
