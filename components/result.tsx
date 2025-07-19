@@ -29,7 +29,7 @@ export default function Result({
   opinions,
   userAnswers,
 }: ResultProps) {
-  let distances = [];
+  const distances: number[] = [];
   for (let i = 0; i < opinions.length; i++) {
     distances[i] = 0;
     for (let j = 0; j < userAnswers.length; j++) {
