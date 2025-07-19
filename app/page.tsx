@@ -71,7 +71,7 @@ export default function Home() {
 
   return (
     <div>
-      <main className="bg-[#ffefec] pt-10 w-screen h-full">
+      <main className="bg-[#ffefec] pt-10 w-screen h-full min-h-screen">
         <div className="w-full flex justify-center mt-8 mb-2">
           <img
             src="/eo-nasjonalt.svg"
