@@ -69,7 +69,7 @@ export default function Result({
       </ContentCard>
       
       {remainingParties.length > 0 && (
-        <div className="w-full max-w-4xl">
+        <div className="w-full max-w-4xl ml-8 min-[915px]:ml-0">
           <h2 className="text-lg font-semibold mb-4 text-center">Andre partier</h2>
           <div className="overflow-x-auto">
             <div className="flex gap-4 pb-4">
