@@ -69,10 +69,10 @@ export default function Result({
       </ContentCard>
       
       {remainingParties.length > 0 && (
-        <div className="w-full max-w-4xl ml-8 min-[915px]:ml-0">
+        <div className="w-full max-w-4xl">
           <h2 className="text-lg font-semibold mb-4 text-center">Andre partier</h2>
-          <div className="overflow-x-auto">
-            <div className="flex gap-4 pb-4">
+          <div className="overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+            <div className="flex gap-4 pb-4 pl-4 min-[910px]:pl-0">
               {remainingParties.map((party, index) => (
                 <div
                   key={index + 1}
