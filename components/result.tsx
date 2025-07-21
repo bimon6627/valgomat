@@ -94,8 +94,8 @@ export default function Result({
   ].join(" ");
 
   const scrollSpacingClasses = [
-    "before:content-['']", "before:w-4", "before:flex-shrink-0",
-    "after:content-['']", "after:w-4", "after:flex-shrink-0",
+    "before:content-['']", "before:w-2", "before:flex-shrink-0",
+    "after:content-['']", "after:w-2", "after:flex-shrink-0",
     "min-[910px]:before:w-0", "min-[910px]:after:w-0"
   ].join(" ");
 
