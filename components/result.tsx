@@ -47,8 +47,21 @@ export default function Result({
   const getPercentage = (distance: number) => 
     Math.round(((maxDistance - distance) / maxDistance) * 100);
 
-  const topParty = sortedParties[0];
-  const remainingParties = sortedParties.slice(1);
+  const [topParty, ...remainingParties] = sortedParties;
+
+  // Responsive scrollbar hiding classes
+  const scrollbarHideClasses = [
+    "[&::-webkit-scrollbar]:hidden",
+    "[-ms-overflow-style:none]", 
+    "[scrollbar-width:none]"
+  ].join(" ");
+
+  // Responsive spacing classes for scroll container
+  const scrollSpacingClasses = [
+    "before:content-['']", "before:w-4", "before:flex-shrink-0",
+    "after:content-['']", "after:w-4", "after:flex-shrink-0",
+    "min-[910px]:before:w-0", "min-[910px]:after:w-0"
+  ].join(" ");
 
   return (
     <div className="flex flex-col items-center gap-10 text-black">
@@ -70,9 +83,11 @@ export default function Result({
       
       {remainingParties.length > 0 && (
         <div className="w-full max-w-4xl">
-          <h2 className="text-lg font-semibold mb-4 text-center">Andre partier</h2>
-          <div className="overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
-            <div className="flex gap-4 pb-4 pl-4 min-[910px]:pl-0">
+          <h2 className="text-lg font-semibold mb-4 text-center">
+            Andre partier
+          </h2>
+          <div className={`overflow-x-auto ${scrollbarHideClasses}`}>
+            <div className={`flex gap-4 pb-4 ${scrollSpacingClasses}`}>
               {remainingParties.map((party, index) => (
                 <div
                   key={index + 1}
