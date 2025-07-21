@@ -28,42 +28,105 @@ const partyStyles: Record<string, { bg: string; text: string }> = {
   KRF: { bg: "bg-yellow-400", text: "text-black" },
 };
 
-const subjects = ["Skolehverdagen", "Eksamen", "Læreplasser"];
+const subjects = [
+  "Skolehverdagen",
+  "Eksamen",
+  "Læreplasser",
+  "Privatskole",
+  "Skolehelsetjeneste",
+  "Skolebygg",
+];
 
 const assertions: [string, string][] = [
   [
-    "Elever ved alle skoletrinn bør ha lengre skoledager for å få mer tid til læring.",
+    "Skolene bør få større frihet til å velge læremidler og undervisningsopplegg.",
     subjects[0],
   ],
-  ["Det trengs flere kommunesammenslåinger her i landet.", subjects[1]],
   [
-    "Flyktninger må bo andre steder enn i områder med mange innvandrere fra før.",
+    "Det bør innføres obligatorisk eksamen i praktisk-estetiske fag på ungdomsskolen.",
+    subjects[1],
+  ],
+  [
+    "Lærlinger bør få høyere lønn under læretiden for å sikre rekruttering til yrkesfag.",
     subjects[2],
+  ],
+  ["Mobiltelefoner bør forbys fullstendig i skoletiden.", subjects[0]],
+  ["Eksamen bør fjernes helt til fordel for underveisvurdering.", subjects[1]],
+  [
+    "Flere læreplasser bør opprettes i det offentlige, særlig i helse- og omsorgssektoren.",
+    subjects[2],
+  ],
+  [
+    "Privatskoler bør få mindre offentlig støtte for å styrke fellesskolen.",
+    subjects[3],
+  ],
+  [
+    "Det bør ansettes flere helsesykepleiere i skolene for å sikre elevenes psykiske helse.",
+    subjects[4],
+  ],
+  [
+    "Det bør settes av statlige midler til omfattende oppgradering av skolebygg.",
+    subjects[5],
+  ],
+  ["Religiøse privatskoler bør ikke ha adgang til statsstøtte.", subjects[3]],
+  [
+    "Skolehelsetjenesten bør være til stede hver dag på alle grunnskoler.",
+    subjects[4],
+  ],
+  [
+    "Skolebygg som ikke tilfredsstiller helsekrav, bør stenges til de er utbedret.",
+    subjects[5],
   ],
 ];
 
 const forAndAgainst = [
-  `Over de siste tiårene har politkerne lagt til flere år på skolen gjennom flere trinn og skoletimer. Enkelte mener at det er viktig å ha lengre skoledager for å gi elevene mer tid til læring, mens andre mener at det kan bli for mye press på elevene.
-  Samtidig viser statistikk at flere skoletimer ikke har bidratt til å øke resultatene i skolen da resultatene i flere fag er blitt dårligere.
-  Elevorganisasjonen mener det ikke er hensiktsmessig å legge til flere timer i skolen da dette kan føre til økt stress og press på elevene. Vi frykter dette vil bidra til mer utbrenthet, noe som ytterligere vil forværre resultatene i skolen.`,
-  `Norge har 357 kommuner. Tallet ble redusert med om lag 70 da Erna Solbergs regjering gjennomførte en kommunereform.
-  Tanken var at større kommuner er mer effektive, og at det er positivt for innbyggere og ansatte med større fagmiljøer. Mange mener det fortsatt er behov for å redusere tallet.
-  En ulempe med sammenslåinger kan være at kommunene blir større geografiske områder med mer avstand mellom innbyggere og de som bestemmer, mener andre.`,
-  `Flere store byer har nabolag der mange med innvandrerbakgrunn bor tett. Drammen og flere av Østfold-byene for eksempel.
-  Noen foreslår å bosette flyktninger andre steder og å lage regler som sørger for at flyktninger ikke flytter videre til slike områder. De mener spredning gir bedre integrering og mindre utenforskap.
-  De som er uenige, mener det er viktigst at folk har frihet til å bo der de vil, og der de har nettverk og trygghet.`,
+  `Noen mener at større lokal frihet til valg av læremidler gir mer fleksibel og relevant undervisning tilpasset elevenes behov. Det gir lærerne mulighet til å bruke oppdaterte ressurser og nye metoder.
+  Andre frykter at det kan føre til større ulikhet i kvaliteten på undervisningen mellom skoler og kommuner, og at sentrale krav og mål lettere oversees.`,
+
+  `Flere ønsker at praktisk-estetiske fag som musikk, kunst og kroppsøving skal anerkjennes mer gjennom vurdering på lik linje med andre fag.
+  Kritikere mener at slike fag ikke egner seg for eksamen, og at det kan føre til økt stress og svekket glede ved praktisk læring.`,
+
+  `Tilhengere av høyere lærlinglønn peker på at det kan gjøre yrkesfag mer attraktivt og gi bedre økonomiske vilkår for unge i lære. Mange har utgifter og må forsørge seg selv.
+  Andre hevder at økt lærlinglønn kan gjøre det dyrere for bedriftene og føre til færre læreplasser, særlig i små virksomheter.`,
+
+  `Noen mener mobilforbud i skoletiden bidrar til mer konsentrasjon, bedre læring og færre konflikter. Flere skoler har allerede gode erfaringer med forbud.
+  Motstandere mener elevene heller bør lære å bruke teknologien ansvarlig, og at et forbud kan være vanskelig å håndheve i praksis.`,
+
+  `Motstandere av eksamen mener at underveisvurdering gir et mer helhetlig og rettferdig bilde av elevens kompetanse. Eksamen kan oppleves som stressende og lite representativ for det eleven kan.
+  Tilhengere mener eksamen gir en objektiv sluttvurdering og er nødvendig for å sammenligne nivå på tvers av skoler og elever.`,
+
+  `Mange peker på behovet for flere læreplasser i helse og omsorg, spesielt med eldrebølgen. Det offentlige bør ta et større ansvar og gå foran som arbeidsgiver.
+  Andre hevder det er kostbart og krever flere veiledere, og at det ikke er mulig å garantere kvalitet på opplæringen uten nok ressurser.`,
+
+  `Tilhengere mener offentlig støtte til privatskoler svekker den offentlige fellesskolen, og at midlene heller burde gå til å forbedre det offentlige skoletilbudet. 
+  Motstandere mener privatskoler gir foreldre og elever et viktig alternativ, og at mangfoldet i skoletilbudet bør bevares.`,
+
+  `Mange elever sliter psykisk, og skolehelsetjenesten er ofte underbemannet. Flere mener det bør ansettes flere helsesykepleiere for å tilby samtaler, støtte og tidlig innsats.
+  Kritikere peker på at det er vanskelig å rekruttere nok fagfolk og at det vil koste mye, særlig i små kommuner.`,
+
+  `I mange kommuner er skolebygg i dårlig forfatning med fukt, dårlig ventilasjon og manglende vedlikehold. Flere mener staten må ta et større ansvar og bevilge midler til opprusting.
+  Andre hevder at skolebygg er kommunens ansvar, og at staten ikke kan dekke alle lokale investeringer.`,
+
+  `Motstandere av statsstøtte til religiøse skoler mener dette bryter med prinsippet om at offentlig støtte ikke skal gå til religiøs påvirkning. De ønsker å skille skole og religion tydeligere.
+  Tilhengere mener at religionsfriheten innebærer retten til å velge en skole i tråd med eget livssyn – også med støtte fra staten, så lenge skolen følger læreplanen.`,
+
+  `Flere organisasjoner mener skolehelsetjenesten må være til stede hver dag på alle grunnskoler for å oppdage og følge opp elevers helseproblemer tidlig.
+  Motstandere peker på at det er vanskelig å oppnå med dagens ressursnivå, og at det er mer realistisk å styrke tjenesten gradvis der behovet er størst.`,
+
+  `Mange mener at skolebygg som ikke er helsemessig forsvarlige bør stenges, for å beskytte elever og ansatte. Å fortsette undervisning i slike bygg svekker tilliten til skolen.
+  Andre mener at midlertidige løsninger som brakkerigger og trinnvis utbedring er mer realistisk enn full stengning, som kan skape kaos for elever og foreldre.`,
 ];
 
 const opinions = [
-  [-2, -2, -1], // R
-  [1, -2, -1], // SV
-  [-1, -1, 2], // AP
-  [-1, -2, 2], // SP
-  [-2, -1, -1], // MDG
-  [-1, -1, -1], // KRF
-  [-1, 2, 1], // V
-  [2, 2, 2], // H
-  [-1, 2, 2], // FRP
+  [2, -1, 1, 2, 2, 1, 1, 2, 1, 2, 2, 2], // R
+  [1, 2, 2, 1, 2, 2, 1, 2, 1, 2, 2, 2], // SV
+  [1, 1, 2, 1, 1, 2, 1, 2, 2, 1, 2, 2], // AP
+  [2, 1, 2, 1, 1, 2, -1, 1, 1, 1, 1, 2], // SP
+  [2, 1, 1, 2, 2, 1, 1, 2, 2, 1, 2, 2], // MDG
+  [1, -1, 1, 2, 1, 2, -1, 2, 2, -1, 1, 2], // KRF
+  [1, 1, 1, 1, 1, 2, 1, 1, 1, -1, 1, 1], // V
+  [-1, -2, -1, 2, -2, 1, -2, -1, 1, -2, 1, 1], // H
+  [-2, -2, -2, 2, -2, -1, -2, -2, -1, -2, -1, -2], // FRP
 ];
 
 export default function Home() {
