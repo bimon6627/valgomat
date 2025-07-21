@@ -1,4 +1,4 @@
-import { JSX } from "react";
+import { JSX, useEffect, useRef } from "react";
 import ContentCard from "./content-card";
 
 type Party = {
@@ -29,7 +29,7 @@ export default function Result({
   opinions,
   userAnswers,
 }: ResultProps) {
-  // Calculate distances using functional approach
+  // Calculate distances
   const partiesWithDistance: PartyWithDistance[] = parties.map((party, i) => ({
     ...party,
     distance: opinions[i].reduce((sum, opinion, j) => 
@@ -49,22 +49,64 @@ export default function Result({
 
   const [topParty, ...remainingParties] = sortedParties;
 
-  // Responsive scrollbar hiding classes
+  // Ref for the horizontal scroll container
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+
+  // Enable horizontal scrolling with mouse wheel on Windows
+  useEffect(() => {
+    const scrollContainer = scrollContainerRef.current;
+    if (!scrollContainer) return;
+
+    const handleWheel = (e: WheelEvent) => {
+      const hasHorizontalOverflow = scrollContainer.scrollWidth > scrollContainer.clientWidth;
+      
+      if (hasHorizontalOverflow) {
+        // Check if the wheel event is likely from a mouse wheel
+        const isDeltaChunky = e.deltaY % 120 === 0 || Math.abs(e.deltaY) % 40 === 0;
+        const isLargeDelta = Math.abs(e.deltaY) > 40;
+        const hasNoHorizontalMovement = e.deltaX === 0;
+        const isVerticalDominant = Math.abs(e.deltaY) > Math.abs(e.deltaX) * 3;
+        
+        // Only convert to horizontal if it's very likely a mouse wheel
+        const isMouseWheel = isDeltaChunky && isLargeDelta && hasNoHorizontalMovement && isVerticalDominant;
+        
+        if (isMouseWheel) {
+          // Convert vertical mouse wheel to horizontal scroll
+          e.preventDefault();
+          scrollContainer.scrollLeft += e.deltaY;
+        }
+        // For trackpads and uncertain cases, let browser handle naturally
+      }
+    };
+
+    scrollContainer.addEventListener('wheel', handleWheel, { passive: false });
+    
+    return () => {
+      scrollContainer.removeEventListener('wheel', handleWheel);
+    };
+  }, [remainingParties.length]);
+
+  // CSS class configurations
   const scrollbarHideClasses = [
     "[&::-webkit-scrollbar]:hidden",
     "[-ms-overflow-style:none]", 
     "[scrollbar-width:none]"
   ].join(" ");
 
-  // Responsive spacing classes for scroll container
   const scrollSpacingClasses = [
     "before:content-['']", "before:w-4", "before:flex-shrink-0",
     "after:content-['']", "after:w-4", "after:flex-shrink-0",
     "min-[910px]:before:w-0", "min-[910px]:after:w-0"
   ].join(" ");
 
+  const partyCardClasses = [
+    "flex-shrink-0", "bg-white", "rounded-lg", "p-4", 
+    "min-w-[150px]", "text-center", "shadow-md"
+  ].join(" ");
+
   return (
     <div className="flex flex-col items-center gap-10 text-black">
+      {/* Top party display */}
       <ContentCard>
         <div className="flex flex-col items-center gap-4">
           <h1 className="font-semibold text-xl">
@@ -81,18 +123,19 @@ export default function Result({
         </div>
       </ContentCard>
       
+      {/* Remaining parties horizontal scroll */}
       {remainingParties.length > 0 && (
         <div className="w-full max-w-4xl">
           <h2 className="text-lg font-semibold mb-4 text-center">
             Andre partier
           </h2>
-          <div className={`overflow-x-auto ${scrollbarHideClasses}`}>
+          <div 
+            ref={scrollContainerRef}
+            className={`overflow-x-auto ${scrollbarHideClasses}`}
+          >
             <div className={`flex gap-4 pb-4 ${scrollSpacingClasses}`}>
               {remainingParties.map((party, index) => (
-                <div
-                  key={index + 1}
-                  className="flex-shrink-0 bg-white rounded-lg p-4 min-w-[150px] text-center shadow-md"
-                >
+                <div key={index + 1} className={partyCardClasses}>
                   <div className="font-semibold text-sm mb-1">
                     {party.name}
                   </div>
