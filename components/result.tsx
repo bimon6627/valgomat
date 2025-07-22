@@ -63,14 +63,18 @@ export default function Result({
         scrollContainer.scrollWidth > scrollContainer.clientWidth;
       const isVerticalOnly = e.deltaX === 0 && Math.abs(e.deltaY) > 0;
 
-      if (hasHorizontalOverflow && isVerticalOnly) {
+      // Prevent unwanted horizontal scroll during vertical gestures (trackpads)
+      const isScrollOnTrackpad =
+        Math.abs(e.deltaX) > 0 || Math.abs(e.deltaY) < 10;
+
+      if (hasHorizontalOverflow && isVerticalOnly && !isScrollOnTrackpad) {
         e.preventDefault();
         scrollContainer.scrollBy({
-          left: e.deltaY * 0.5, // scale down if needed
+          left: e.deltaY,
           behavior: "smooth",
         });
       }
-      // Let natural scroll happen for trackpads or hybrid gestures
+      // Let trackpad gestures through (horizontal or vertical)
     };
 
     scrollContainer.addEventListener("wheel", handleWheel, { passive: false });
