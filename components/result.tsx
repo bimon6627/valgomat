@@ -32,8 +32,9 @@ export default function Result({
   // Calculate distances
   const partiesWithDistance: PartyWithDistance[] = parties.map((party, i) => ({
     ...party,
-    distance: opinions[i].reduce((sum, opinion, j) => 
-      sum + Math.abs(opinion - userAnswers[j]), 0
+    distance: opinions[i].reduce(
+      (sum, opinion, j) => sum + Math.abs(opinion - userAnswers[j]),
+      0
     ),
   }));
 
@@ -44,7 +45,7 @@ export default function Result({
   const maxDistance = 4 * assertions.length;
 
   // Helper function to calculate percentage
-  const getPercentage = (distance: number) => 
+  const getPercentage = (distance: number) =>
     Math.round(((maxDistance - distance) / maxDistance) * 100);
 
   const [topParty, ...remainingParties] = sortedParties;
@@ -58,50 +59,46 @@ export default function Result({
     if (!scrollContainer) return;
 
     const handleWheel = (e: WheelEvent) => {
-      const hasHorizontalOverflow = scrollContainer.scrollWidth > scrollContainer.clientWidth;
-      
-      if (hasHorizontalOverflow) {
-        // Check if the wheel event is likely from a mouse wheel
-        const isDeltaChunky = e.deltaY % 120 === 0 || Math.abs(e.deltaY) % 40 === 0;
-        const isLargeDelta = Math.abs(e.deltaY) > 40;
-        const hasNoHorizontalMovement = e.deltaX === 0;
-        const isVerticalDominant = Math.abs(e.deltaY) > Math.abs(e.deltaX) * 3;
-        
-        // Only convert to horizontal if it's very likely a mouse wheel
-        const isMouseWheel = isDeltaChunky && isLargeDelta && hasNoHorizontalMovement && isVerticalDominant;
-        
-        if (isMouseWheel) {
-          // Convert vertical mouse wheel to horizontal scroll
-          e.preventDefault();
-          scrollContainer.scrollLeft += e.deltaY;
-        }
-        // For trackpads and uncertain cases, let browser handle naturally
+      if (scrollContainer.scrollWidth > scrollContainer.clientWidth) {
+        e.preventDefault();
+        scrollContainer.scrollBy({
+          left: e.deltaY, // Less jumpy
+          behavior: "smooth", // Smooth animation
+        });
       }
     };
 
-    scrollContainer.addEventListener('wheel', handleWheel, { passive: false });
-    
+    scrollContainer.addEventListener("wheel", handleWheel, { passive: false });
+
     return () => {
-      scrollContainer.removeEventListener('wheel', handleWheel);
+      scrollContainer.removeEventListener("wheel", handleWheel);
     };
-  }, [remainingParties.length]);
+  }, []);
 
   // CSS class configurations
   const scrollbarHideClasses = [
     "[&::-webkit-scrollbar]:hidden",
-    "[-ms-overflow-style:none]", 
-    "[scrollbar-width:none]"
+    "[-ms-overflow-style:none]",
+    "[scrollbar-width:none]",
   ].join(" ");
 
   const scrollSpacingClasses = [
-    "before:w-2", "before:flex-shrink-0",
-    "after:w-2", "after:flex-shrink-0",
-    "min-[910px]:before:w-0", "min-[910px]:after:w-0"
+    "before:w-2",
+    "before:flex-shrink-0",
+    "after:w-2",
+    "after:flex-shrink-0",
+    "min-[910px]:before:w-0",
+    "min-[910px]:after:w-0",
   ].join(" ");
 
   const partyCardClasses = [
-    "flex-shrink-0", "bg-white", "rounded-lg", "p-4", 
-    "min-w-[150px]", "text-center", "shadow-md"
+    "flex-shrink-0",
+    "bg-white",
+    "rounded-lg",
+    "p-4",
+    "min-w-[150px]",
+    "text-center",
+    "shadow-md",
   ].join(" ");
 
   return (
@@ -109,36 +106,30 @@ export default function Result({
       {/* Top party display */}
       <ContentCard>
         <div className="flex flex-col items-center gap-4">
-          <h1 className="font-semibold text-xl">
-            Du er mest enig med
-          </h1>
+          <h1 className="font-semibold text-xl">Du er mest enig med</h1>
           <div className="text-center">
-            <div className="mb-1 text-2xl font-semibold">
-              {topParty.name}
-            </div>
+            <div className="mb-1 text-2xl font-semibold">{topParty.name}</div>
             <div className="text-xl font-regular">
               {getPercentage(topParty.distance)}% Enig
             </div>
           </div>
         </div>
       </ContentCard>
-      
+
       {/* Remaining parties horizontal scroll */}
       {remainingParties.length > 0 && (
         <div className="w-full max-w-4xl">
           <h2 className="text-lg font-semibold mb-4 text-center">
             Andre partier
           </h2>
-          <div 
+          <div
             ref={scrollContainerRef}
             className={`overflow-x-auto ${scrollbarHideClasses}`}
           >
             <div className={`flex gap-4 pb-4 ${scrollSpacingClasses}`}>
               {remainingParties.map((party, index) => (
                 <div key={index + 1} className={partyCardClasses}>
-                  <div className="font-semibold text-sm mb-1">
-                    {party.name}
-                  </div>
+                  <div className="font-semibold text-sm mb-1">{party.name}</div>
                   <div className="text-lg font-regular">
                     {getPercentage(party.distance)}% Enig
                   </div>
