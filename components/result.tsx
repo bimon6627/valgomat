@@ -59,13 +59,18 @@ export default function Result({
     if (!scrollContainer) return;
 
     const handleWheel = (e: WheelEvent) => {
-      if (scrollContainer.scrollWidth > scrollContainer.clientWidth) {
+      const hasHorizontalOverflow =
+        scrollContainer.scrollWidth > scrollContainer.clientWidth;
+      const isVerticalOnly = e.deltaX === 0 && Math.abs(e.deltaY) > 0;
+
+      if (hasHorizontalOverflow && isVerticalOnly) {
         e.preventDefault();
         scrollContainer.scrollBy({
-          left: e.deltaY, // Less jumpy
-          behavior: "smooth", // Smooth animation
+          left: e.deltaY * 0.5, // scale down if needed
+          behavior: "smooth",
         });
       }
+      // Let natural scroll happen for trackpads or hybrid gestures
     };
 
     scrollContainer.addEventListener("wheel", handleWheel, { passive: false });
