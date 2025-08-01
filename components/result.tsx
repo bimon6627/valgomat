@@ -30,19 +30,22 @@ export default function Result({
   userAnswers,
 }: ResultProps) {
   // Calculate distances
-  const partiesWithDistance: PartyWithDistance[] = parties.map((party, i) => ({
-    ...party,
-    distance: opinions[i].reduce(
-      (sum, opinion, j) => sum + Math.abs(opinion - userAnswers[j]),
-      0
-    ),
-  }));
+  const partiesWithDistance: PartyWithDistance[] = parties.map((party, i) => {
+    const distance = opinions[i].reduce((sum, opinion, j) => {
+      const userAnswer = userAnswers[j];
+      if (typeof userAnswer !== "number") return sum; // skip unanswered
+      return sum + Math.abs(opinion - userAnswer);
+    }, 0);
+
+    return { ...party, distance };
+  });
 
   const sortedParties = partiesWithDistance
     .slice()
     .sort((a, b) => a.distance - b.distance);
 
-  const maxDistance = 4 * assertions.length;
+  const answeredCount = userAnswers.filter((a) => typeof a === "number").length;
+  const maxDistance = 4 * answeredCount;
 
   // Helper function to calculate percentage
   const getPercentage = (distance: number) =>
