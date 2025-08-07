@@ -1,7 +1,7 @@
 export default function Footer() {
   return (
     <footer className="flex flex-col items-center max-w-screen bg-[#3d3d3d] font-regular text-[#73FFD7]">
-      <div className="flex flex-row gap-10 pt-10 px-10">
+      <div className="flex md:flex-row flex-col gap-10 pt-10 px-10">
         <div>
           <p>Elevorganisasjonen</p>
           <p>
@@ -21,7 +21,7 @@ export default function Footer() {
           </p>
         </div>
 
-        <div className="max-w-2/5">
+        <div className="md:max-w-2/5">
           <p>
             Ansvarlig redaktør:{" "}
             <a
