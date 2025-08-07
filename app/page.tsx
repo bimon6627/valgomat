@@ -3,6 +3,7 @@ import Valgomat from "@/components/valgomat";
 import ContentCard from "@/components/content-card";
 import { useState } from "react";
 import Result from "@/components/result";
+import Footer from "@/components/footer";
 
 const parties = [
   { name: "Rødt", symbol: "R" },
@@ -196,14 +197,16 @@ export default function Home() {
 
   return (
     <div>
-      <main className="bg-[#ffefec] pt-10 w-screen h-full min-h-screen">
+      <main className="bg-[#ffefec] pt-10 max-w-screen h-full min-h-screen">
         <div className="w-full flex justify-center mt-8 mb-12">
           <div className="flex flex-col items-center">
-            <img
-              src="/eo-nasjonalt.svg"
-              alt="Globe"
-              className="w-[250px] h-auto"
-            />
+            <a href="https://elev.no">
+              <img
+                src="/eo-nasjonalt.svg"
+                alt="Globe"
+                className="w-[250px] h-auto"
+              />
+            </a>
           </div>
         </div>
 
@@ -230,7 +233,7 @@ export default function Home() {
         )}
 
         <div className="w-full flex justify-center pt-10">
-          <ContentCard className="mb-[100] gap-5">
+          <ContentCard className="mb-[100]">
             <h1 className="font-semibold text-xl text-black">
               Om valgomaten vår
             </h1>
@@ -242,7 +245,7 @@ export default function Home() {
               Basert på dine svar vil valgomaten vise hvilke partier du er mest
               enig med.
             </p>
-            <p className="font-regular text-black">
+            <p className="font-regular text-black pt-5">
               Ikke alle partiene har svart oss med hvor enig / uenig de er i
               ulike påstander. Da har vi prøvd å finne ut hvor enige de er med å
               se i partiprogrammene, hva de legger ut og hvilken politikk de
@@ -251,7 +254,7 @@ export default function Home() {
           </ContentCard>
         </div>
       </main>
-      <footer></footer>
+      <Footer />
     </div>
   );
 }
