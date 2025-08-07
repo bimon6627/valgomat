@@ -230,7 +230,7 @@ export default function Home() {
         )}
 
         <div className="w-full flex justify-center pt-10">
-          <ContentCard className="mb-[100]">
+          <ContentCard className="mb-[100] gap-5">
             <h1 className="font-semibold text-xl text-black">
               Om valgomaten vår
             </h1>
@@ -242,7 +242,7 @@ export default function Home() {
               Basert på dine svar vil valgomaten vise hvilke partier du er mest
               enig med.
             </p>
-            <p>
+            <p className="font-regular text-black">
               Ikke alle partiene har svart oss med hvor enig / uenig de er i
               ulike påstander. Da har vi prøvd å finne ut hvor enige de er med å
               se i partiprogrammene, hva de legger ut og hvilken politikk de
