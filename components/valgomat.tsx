@@ -17,8 +17,8 @@ type ValgomatProps = {
   assertions: [string, string][];
   forAndAgainst: string[];
   opinions: number[][];
-  userAnswers: number[];
-  setUserAnswers: React.Dispatch<React.SetStateAction<number[]>>;
+  userAnswers: (number | undefined)[];
+  setUserAnswers: React.Dispatch<React.SetStateAction<(number | undefined)[]>>;
   onSubmit: () => void;
 };
 
@@ -46,11 +46,19 @@ export default function Valgomat({
   const [currentSelectedAnswer, setCurrentSelectedAnswer] = useState(0);
   const [currentAssertion, setCurrentAssertion] = useState(0);
 
+  // Calculate total number of answered questions
+  const answeredCount = userAnswers.filter(answer => answer !== undefined).length;
+  
+  // Calculate number of skips based on current position vs answers given
+  const skipCount = (currentAssertion + 1) - answeredCount;
+
   const select = (value: number) => {
-    setCurrentSelectedAnswer((prev) => (prev !== value ? value : 0));
+    const newValue = currentSelectedAnswer !== value ? value : 0;
+    setCurrentSelectedAnswer(newValue);
     setUserAnswers((prevAnswers) => {
       const updatedAnswers = [...prevAnswers];
-      updatedAnswers[currentAssertion] = value;
+      // If newValue is 0, it means the user is removing their answer
+      updatedAnswers[currentAssertion] = newValue === 0 ? undefined : newValue;
       return updatedAnswers;
     });
   };
@@ -76,10 +84,11 @@ export default function Valgomat({
   function nextAssertion() {
     if (currentAssertion < assertions.length - 1) {
       setCurrentAssertion(currentAssertion + 1);
-      if (userAnswers[currentAssertion + 1] === undefined) {
+      const nextAnswer = userAnswers[currentAssertion + 1];
+      if (nextAnswer === undefined) {
         setCurrentSelectedAnswer(0);
       } else {
-        setCurrentSelectedAnswer(userAnswers[currentAssertion + 1]);
+        setCurrentSelectedAnswer(nextAnswer);
       }
     } else {
       onSubmit();
@@ -89,10 +98,11 @@ export default function Valgomat({
   function previousAssertion() {
     if (currentAssertion > 0) {
       setCurrentAssertion(currentAssertion - 1);
-      if (userAnswers[currentAssertion - 1] === undefined) {
+      const prevAnswer = userAnswers[currentAssertion - 1];
+      if (prevAnswer === undefined) {
         setCurrentSelectedAnswer(0);
       } else {
-        setCurrentSelectedAnswer(userAnswers[currentAssertion - 1]);
+        setCurrentSelectedAnswer(prevAnswer);
       }
     }
   }
@@ -145,7 +155,7 @@ export default function Valgomat({
               className={
                 currentAssertion === 0
                   ? "hidden"
-                  : "bg-[#ff6340] font-semibold text-white mt-10 px-5 py-2 w-fit cursor-pointer hover:bg-[#ffb19f] rounded-4xl flex items-center gap-1"
+                  : "bg-[#ff6340] font-semibold text-white mt-10 px-5 py-2 w-fit cursor-pointer hover:opacity-80 transition-opacity duration-200 rounded-4xl flex items-center gap-1"
               }
             >
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -156,9 +166,16 @@ export default function Valgomat({
             <button
               type="button"
               onClick={() => nextAssertion()}
-              className="bg-[#ff6340] font-semibold text-white mt-10 px-5 py-2 w-fit cursor-pointer hover:bg-[#ffb19f] rounded-4xl flex items-center gap-1"
+              disabled={currentSelectedAnswer === 0 && skipCount >= 11}
+              className={
+                currentSelectedAnswer === 0 && skipCount >= 11
+                  ? "bg-gray-400 font-semibold text-gray-600 mt-10 px-5 py-2 w-fit cursor-not-allowed rounded-4xl flex items-center gap-1"
+                  : "bg-[#ff6340] font-semibold text-white mt-10 px-5 py-2 w-fit cursor-pointer hover:opacity-80 transition-opacity duration-200 rounded-4xl flex items-center gap-1"
+              }
             >
-              {currentSelectedAnswer === 0 ? "Hopp over" : (
+              {currentSelectedAnswer === 0 ? (
+                skipCount >= 11 ? "Kan ikke hoppe over" : "Hopp over"
+              ) : (
                 <>
                   Neste påstand
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -169,6 +186,18 @@ export default function Valgomat({
             </button>
           </div>
         </form>
+        
+        {/* Answer counter - DEBUG */}
+        {/* 
+        <div className="mt-6 pt-4 border-t border-gray-200">
+          <div className="text-center text-sm text-gray-600">
+            Antall svar gitt: <span className="font-semibold">{answeredCount}</span>
+          </div>
+          <div className="text-center text-sm text-gray-600 mt-2">
+            Antall ubesvarte spørsmål: <span className="font-semibold">{skipCount}</span>
+          </div>
+        </div>
+        */}
       </ContentCard>
 
       <ContentCard>
