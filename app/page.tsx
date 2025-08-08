@@ -30,12 +30,16 @@ const partyStyles: Record<string, { bg: string; text: string }> = {
 };
 
 const subjects = [
-  "Skolehverdagen",
-  "Eksamen",
-  "Læreplasser",
-  "Privatskole",
-  "Skolehelsetjeneste",
-  "Skolebygg",
+  "Eksamen og vurdering",
+  "Fraværsgrensa",
+  "Yrkesfag",
+  "Økonomi",
+  "Undervisningsinnhold og faglig tilpasning",
+  "Skolemiljø",
+  "Russetiden",
+  "Undervisningsformer",
+  "Skolepolitikk",
+  "Verdier og mangfold",
 ];
 
 const assertions: [string, string][] = [
