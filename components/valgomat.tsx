@@ -111,7 +111,7 @@ export default function Valgomat({
     <div className="flex flex-col items-center gap-10">
       <ContentCard>
         {/* Progress bar */}
-        <div className="mb-8 bg-gray-50 rounded-full py-4 px-6">
+        <div>
           <div className="flex justify-between items-center mb-2">
             <span className="text-sm font-regular text-black">
               Spørsmål {currentAssertion + 1} av {assertions.length}
@@ -129,7 +129,9 @@ export default function Valgomat({
             ></div>
           </div>
         </div>
-        
+
+        <div className="mt-6 mb-10 border-t border-gray-200"> </div>
+
         <h3 className="font-regular text-[#0a466e]">{assertions[currentAssertion][1]}</h3>
         <h1 className="font-semibold text-xl text-black">
           {assertions[currentAssertion][0]}
