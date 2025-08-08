@@ -43,17 +43,29 @@ export default function AnswerButton({
         className={`
           w-12 h-12 rounded-full border-2
           flex items-center justify-center
-          transition-all duration-150
-          relative group
+          transition-all duration-300 ease-out
+          relative group overflow-hidden
           ${selected ? "bg-[#ff6340] border-[#ff6340]" : "bg-white border-[#ff6340]"}
+          hover:scale-105 active:scale-95
         `}
       >
+        {/* Background fill animation */}
+        <span
+          className={`
+            absolute inset-0 rounded-full
+            transition-transform duration-300 ease-out
+            pointer-events-none
+            bg-[#ff6340]
+            ${selected ? "scale-100" : "scale-0"}
+          `}
+        />
+        {/* Hover effect */}
         <span
           className={`
             absolute inset-1 rounded-full
-            transition-all duration-150
+            transition-all duration-200 ease-out
             pointer-events-none
-            ${selected ? "bg-[#ff6340]" : "group-hover:bg-[#ffe0d9]"}
+            ${selected ? "bg-transparent" : "group-hover:bg-[#ffe0d9]"}
           `}
         />
       </button>

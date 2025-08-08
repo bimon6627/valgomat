@@ -106,11 +106,10 @@ export default function Result({
   const partyCardClasses = [
     "flex-shrink-0",
     "bg-white",
-    "rounded-lg",
+    "rounded-2xl",
     "p-4",
     "min-w-[150px]",
     "text-center",
-    "shadow-md",
   ].join(" ");
 
   return (
@@ -148,6 +147,16 @@ export default function Result({
                 </div>
               ))}
             </div>
+          </div>
+          
+          {/* Try again button */}
+          <div className="flex justify-center mt-6">
+            <button
+              onClick={() => window.location.reload()}
+              className="bg-[#ff6340] font-semibold font-xl text-white mb-5 px-5 py-2 w-fit cursor-pointer hover:bg-[#ffb19f] rounded-4xl flex items-center gap-1"
+            >
+              Nytt forsøk
+            </button>
           </div>
         </div>
       )}
