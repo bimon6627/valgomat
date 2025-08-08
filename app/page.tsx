@@ -18,15 +18,27 @@ const parties = [
 ];
 
 const partyStyles: Record<string, { bg: string; text: string }> = {
-  R: { bg: "bg-red-800", text: "text-white" },
-  SV: { bg: "bg-purple-600", text: "text-white" },
-  AP: { bg: "bg-red-500", text: "text-white" },
-  SP: { bg: "bg-green-500", text: "text-white" },
-  MDG: { bg: "bg-green-900", text: "text-white" },
-  FRP: { bg: "bg-blue-900", text: "text-white" },
-  H: { bg: "bg-blue-300", text: "text-white" },
-  V: { bg: "bg-cyan-600", text: "text-white" },
-  KRF: { bg: "bg-yellow-400", text: "text-black" },
+  R: { bg: "bg-[#ff2436]", text: "text-white" },
+  SV: { bg: "bg-[#ff2a7f]", text: "text-white" },
+  AP: { bg: "bg-[#fd4b5a]", text: "text-white" },
+  SP: { bg: "bg-[#2eaf6f]", text: "text-white" },
+  MDG: { bg: "bg-[#39ca08]", text: "text-white" },
+  FRP: { bg: "bg-[#4a08ff]", text: "text-white" },
+  H: { bg: "bg-[#006eff]", text: "text-white" },
+  V: { bg: "bg-[#045c6c]", text: "text-white" },
+  KRF: { bg: "bg-[#f1c526]", text: "text-black" },
+};
+
+const partyLinks: Record<string, string> = {
+  R: "https://www.roedt.no/politikken",
+  SV: "https://www.sv.no/politikken/",
+  AP: "https://www.arbeiderpartiet.no/politikken/",
+  SP: "https://www.senterpartiet.no/politikk",
+  MDG: "https://mdg.no/politikk",
+  FRP: "https://www.frp.no/var-politikk",
+  H: "https://hoyre.no/politikk/var-politikk/",
+  V: "https://www.venstre.no/politikk/venstres-politikk/",
+  KRF: "https://krf.no/politikk/",
 };
 
 const subjects = [
@@ -229,6 +241,7 @@ export default function Home() {
           <Result
             parties={parties}
             partyStyles={partyStyles}
+            partyLinks={partyLinks}
             assertions={assertions}
             forAndAgainst={forAndAgainst}
             opinions={opinions}

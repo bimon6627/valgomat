@@ -145,7 +145,7 @@ export default function Valgomat({
               className={
                 currentAssertion === 0
                   ? "hidden"
-                  : "bg-[#ff6340] font-semibold text-white mt-10 px-5 py-2 w-fit cursor-pointer hover:bg-[#ffb19f] rounded-4xl flex items-center gap-1"
+                  : "bg-[#ff6340] font-semibold text-white mt-10 px-5 py-2 w-fit cursor-pointer hover:opacity-80 transition-opacity duration-200 rounded-4xl flex items-center gap-1"
               }
             >
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -156,7 +156,7 @@ export default function Valgomat({
             <button
               type="button"
               onClick={() => nextAssertion()}
-              className="bg-[#ff6340] font-semibold text-white mt-10 px-5 py-2 w-fit cursor-pointer hover:bg-[#ffb19f] rounded-4xl flex items-center gap-1"
+              className="bg-[#ff6340] font-semibold text-white mt-10 px-5 py-2 w-fit cursor-pointer hover:opacity-80 transition-opacity duration-200 rounded-4xl flex items-center gap-1"
             >
               {currentSelectedAnswer === 0 ? "Hopp over" : (
                 <>
