@@ -19,7 +19,7 @@ type ResultProps = {
   assertions: [string, string][];
   forAndAgainst: string[];
   opinions: number[][];
-  userAnswers: number[];
+  userAnswers: (number | undefined)[];
 };
 
 export default function Result({

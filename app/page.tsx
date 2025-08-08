@@ -208,7 +208,7 @@ const opinions = [
 ];
 
 export default function Home() {
-  const [userAnswers, setUserAnswers] = useState<number[]>([]);
+  const [userAnswers, setUserAnswers] = useState<(number | undefined)[]>([]);
   const [submitted, setSubmitted] = useState(false);
 
   return (
