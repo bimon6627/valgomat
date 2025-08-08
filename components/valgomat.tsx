@@ -100,6 +100,26 @@ export default function Valgomat({
   return (
     <div className="flex flex-col items-center gap-10">
       <ContentCard>
+        {/* Progress bar */}
+        <div className="mb-8 bg-gray-50 rounded-full py-4 px-6">
+          <div className="flex justify-between items-center mb-2">
+            <span className="text-sm font-regular text-black">
+              Spørsmål {currentAssertion + 1} av {assertions.length}
+            </span>
+            <span className="text-sm font-regular text-black">
+              {Math.round((currentAssertion / assertions.length) * 100)}%
+            </span>
+          </div>
+          <div className="w-full bg-gray-200 rounded-full h-2">
+            <div
+              className="bg-[#ff6340] h-2 rounded-full transition-all duration-300 ease-in-out"
+              style={{
+                width: `${(currentAssertion / assertions.length) * 100}%`,
+              }}
+            ></div>
+          </div>
+        </div>
+        
         <h3 className="font-regular text-[#0a466e]">{assertions[currentAssertion][1]}</h3>
         <h1 className="font-semibold text-xl text-black">
           {assertions[currentAssertion][0]}
@@ -124,18 +144,28 @@ export default function Valgomat({
               onClick={() => previousAssertion()}
               className={
                 currentAssertion === 0
-                  ? `hidden`
-                  : `bg-[#ff6340] font-semibold text-[#f5f3ee] mt-10 px-5 py-2 w-fit cursor-pointer hover:bg-[#000000] rounded`
+                  ? "hidden"
+                  : "bg-[#ff6340] font-semibold text-white mt-10 px-5 py-2 w-fit cursor-pointer hover:bg-[#ffb19f] rounded-4xl flex items-center gap-1"
               }
             >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M19 12H5M5 12L12 19M5 12L12 5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
               Tilbake
             </button>
             <button
               type="button"
               onClick={() => nextAssertion()}
-              className="bg-[#ff6340] font-semibold text-[#f5f3ee] mt-10 px-5 py-2 w-fit cursor-pointer hover:bg-[#000000] rounded"
+              className="bg-[#ff6340] font-semibold text-white mt-10 px-5 py-2 w-fit cursor-pointer hover:bg-[#ffb19f] rounded-4xl flex items-center gap-1"
             >
-              {currentSelectedAnswer === 0 ? "Hopp over" : "Neste påstand →"}
+              {currentSelectedAnswer === 0 ? "Hopp over" : (
+                <>
+                  Neste påstand
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                </>
+              )}
             </button>
           </div>
         </form>
@@ -145,7 +175,7 @@ export default function Valgomat({
         <h1 className="font-semibold text-xl text-black">
           Argumenter for og imot
         </h1>
-        <div className="flex flex-col gap-5 font-regular text-black">
+        <div className="flex flex-col font-regular text-black mt-5">
           {splitParagraphs(forAndAgainst[currentAssertion])}
         </div>
       </ContentCard>

@@ -7,7 +7,7 @@ export default function ContentCard({
 }) {
   return (
     <div
-      className={`p-10 w-9/10 md:w-[500px] h-fit bg-white rounded-2xl ${className}`}
+      className={`p-10 w-9/10 md:w-[500px] h-fit bg-white rounded-4xl ${className}`}
     >
       {children}
     </div>

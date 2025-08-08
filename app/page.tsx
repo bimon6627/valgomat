@@ -236,12 +236,12 @@ export default function Home() {
           />
         )}
 
-        <div className="w-full flex justify-center pt-10">
+        <div className="w-full flex justify-center mt-10">
           <ContentCard className="mb-[100]">
             <h1 className="font-semibold text-xl text-black">
               Om valgomaten vår
             </h1>
-            <p className="font-regular text-black">
+            <p className="font-regular text-black mt-5">
               Dette er en valgomat utviklet av Elevorganisasjonen som er laget
               for å hjelpe deg å finne ut hvilke partier som passer best med
               dine meninger om utdanningspolitikk. Du vil bli presentert for
@@ -249,11 +249,14 @@ export default function Home() {
               Basert på dine svar vil valgomaten vise hvilke partier du er mest
               enig med.
             </p>
-            <p className="font-regular text-black pt-5">
+            <p className="font-regular text-black mt-5">
               Ikke alle partiene har svart oss med hvor enig / uenig de er i
               ulike påstander. Da har vi prøvd å finne ut hvor enige de er med å
               se i partiprogrammene, hva de legger ut og hvilken politikk de
               praktiserer.
+            </p>
+            <p className="font-regular text-black mt-5">
+              Godt valg!
             </p>
           </ContentCard>
         </div>
