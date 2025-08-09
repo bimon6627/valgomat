@@ -47,10 +47,12 @@ export default function Valgomat({
   const [currentAssertion, setCurrentAssertion] = useState(0);
 
   // Calculate total number of answered questions
-  const answeredCount = userAnswers.filter(answer => answer !== undefined).length;
-  
+  const answeredCount = userAnswers.filter(
+    (answer) => answer !== undefined
+  ).length;
+
   // Calculate number of skips based on current position vs answers given
-  const skipCount = (currentAssertion + 1) - answeredCount;
+  const skipCount = currentAssertion + 1 - answeredCount;
 
   const select = (value: number) => {
     const newValue = currentSelectedAnswer !== value ? value : 0;
@@ -110,29 +112,9 @@ export default function Valgomat({
   return (
     <div className="flex flex-col items-center gap-10">
       <ContentCard>
-        {/* Progress bar */}
-        <div>
-          <div className="flex justify-between items-center mb-2">
-            <span className="text-sm font-regular text-black">
-              Spørsmål {currentAssertion + 1} av {assertions.length}
-            </span>
-            <span className="text-sm font-regular text-black">
-              {Math.round((currentAssertion / assertions.length) * 100)}%
-            </span>
-          </div>
-          <div className="w-full bg-gray-200 rounded-full h-2">
-            <div
-              className="bg-[#ff6340] h-2 rounded-full transition-all duration-300 ease-in-out"
-              style={{
-                width: `${(currentAssertion / assertions.length) * 100}%`,
-              }}
-            ></div>
-          </div>
-        </div>
-
-        <div className="mt-6 mb-10 border-t border-gray-200"> </div>
-
-        <h3 className="font-regular text-[#0a466e]">{assertions[currentAssertion][1]}</h3>
+        <h3 className="font-regular text-[#0a466e]">
+          {assertions[currentAssertion][1]}
+        </h3>
         <h1 className="font-semibold text-xl text-black">
           {assertions[currentAssertion][0]}
         </h1>
@@ -160,8 +142,20 @@ export default function Valgomat({
                   : "bg-[#ff6340] font-semibold text-white mt-10 px-5 py-2 w-fit cursor-pointer hover:opacity-80 transition-opacity duration-200 rounded-4xl flex items-center gap-1"
               }
             >
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M19 12H5M5 12L12 19M5 12L12 5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M19 12H5M5 12L12 19M5 12L12 5"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
               </svg>
               Tilbake
             </button>
@@ -176,19 +170,57 @@ export default function Valgomat({
               }
             >
               {currentSelectedAnswer === 0 ? (
-                skipCount >= 11 ? "Kan ikke hoppe over" : "Hopp over"
+                skipCount >= 11 ? (
+                  "Kan ikke hoppe over"
+                ) : (
+                  "Hopp over"
+                )
               ) : (
                 <>
                   Neste påstand
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M5 12H19M19 12L12 5M19 12L12 19"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
                   </svg>
                 </>
               )}
             </button>
           </div>
         </form>
-        
+
+        <div className="mt-6 mb-10 border-t border-gray-200"> </div>
+
+        {/* Progress bar */}
+        <div>
+          <div className="flex justify-between items-center mb-2">
+            <span className="text-sm font-regular text-black">
+              Spørsmål {currentAssertion + 1} av {assertions.length}
+            </span>
+            <span className="text-sm font-regular text-black">
+              {Math.round((currentAssertion / assertions.length) * 100)}%
+            </span>
+          </div>
+          <div className="w-full bg-gray-200 rounded-full h-2">
+            <div
+              className="bg-[#ff6340] h-2 rounded-full transition-all duration-300 ease-in-out"
+              style={{
+                width: `${(currentAssertion / assertions.length) * 100}%`,
+              }}
+            ></div>
+          </div>
+        </div>
+
         {/* Answer counter - DEBUG */}
         {/* 
         <div className="mt-6 pt-4 border-t border-gray-200">
