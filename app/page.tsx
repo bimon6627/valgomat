@@ -67,7 +67,7 @@ const assertions: [string, string][] = [
   ["Karakteren i orden og adferd burde fjernes", subjects[5]],
   ["Det bør være et mobilforbud på skolen", subjects[5]],
   ["Russetid burde være etter eksamen ", subjects[6]],
-  ["Det burde ikke være tiltatt med russegenser på skolen ", subjects[6]],
+  ["Det burde ikke være tillatt med russegenser på skolen ", subjects[6]],
   ["Lærerne skal ha mer makt i klasserommet ", subjects[5]],
   ["Nivåinndeling over lang tid er positivt", subjects[4]],
   ["Nynorsk burde være et valgfag", subjects[4]],
@@ -268,9 +268,7 @@ export default function Home() {
               se i partiprogrammene, hva de legger ut og hvilken politikk de
               praktiserer.
             </p>
-            <p className="font-regular text-black mt-5">
-              Godt valg!
-            </p>
+            <p className="font-regular text-black mt-5">Godt valg!</p>
           </ContentCard>
         </div>
       </main>
