@@ -64,7 +64,7 @@ export default function Result({
           <div className="text-center">
             <div className="mb-1 text-3xl font-semibold">{topParty.name}</div>
             <div className="text-md font-regular mb-8">
-              Dere er {getPercentage(topParty.distance)}% enige
+              Dere er <span className={`${partyStyles[topParty.symbol]?.bg || "bg-gray-500"} ${partyStyles[topParty.symbol]?.text || "text-white"} px-1 py-1 rounded font-semibold`}>{getPercentage(topParty.distance)}%</span> enige
             </div>
             <div className="flex justify-center">
               <a

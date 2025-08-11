@@ -199,7 +199,7 @@ export default function Valgomat({
           </div>
         </form>
 
-        <div className="mt-6 mb-10 border-t border-gray-200"> </div>
+        <div className="mt-10 mb-6 border-t border-gray-200"> </div>
 
         {/* Progress bar */}
         <div>
