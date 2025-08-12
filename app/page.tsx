@@ -70,7 +70,7 @@ const assertions: [string, string][] = [
   ["Det burde ikke være tillatt med russegenser på skolen ", subjects[6]],
   ["Lærerne skal ha mer makt i klasserommet ", subjects[5]],
   ["Nivåinndeling over lang tid er positivt", subjects[4]],
-  ["Nynorsk burde være et valgfag", subjects[4]],
+  ["Sidemål burde være et valgfag", subjects[4]],
   ["Skolen burde være leksefri", subjects[7]],
   ["Det bør bli mindre testing og karakterer i skolen enn i dag ", subjects[0]],
   ["Det bør bli flere privatskoler", subjects[8]],
