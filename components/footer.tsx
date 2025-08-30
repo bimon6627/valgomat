@@ -57,7 +57,7 @@ export default function Footer() {
         </div>
         <div>
           <p>Post- og besøksaddresse:</p>
-          <p>Christian Kroghs gate 1, 0186 Oslo</p>
+          <p>Christian Kroghs gate 10, 0186 Oslo</p>
           <p>981 070 151</p>
           <a
             href="https://elev.no/kontakt/"
